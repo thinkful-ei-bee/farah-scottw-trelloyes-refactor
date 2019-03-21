@@ -43,6 +43,18 @@ class App extends Component {
     }
   };
 
+  handleDeleteItem(){
+    this.setState({
+
+    })
+  }
+  handleAddRandomCard(){
+    this.setState({
+      
+    })
+  }
+
+
   render() {
     const store  = this.state
     return (
