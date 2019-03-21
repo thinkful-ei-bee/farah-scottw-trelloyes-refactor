@@ -58,19 +58,45 @@ class App extends Component {
     });
   }
 
+  addRandomCard(){
+    const id = Math.random().toString(36).substring(2, 4)
+      + Math.random().toString(36).substring(2, 4);
+    return {
+      id,
+      title: `Random Card ${id}`,
+      content: 'lorem ipsum',
+    }
+  }
+  addCardToList(listId, newCardId){
+    return this.state.lists.map(obj => {
+      if (obj.id === listId){
+        return {
+          ...obj, 
+          cardIds: [...obj.cardIds, newCardId]
+        };
+      } else {return obj;}
+      });
+  }
 
   handleDeleteItem(listKey, cardKey){
     const newLists = this.deleteCardId(listKey, cardKey)
     this.setState({
       lists: newLists,
-      // allCards: this.state.allCards,
     })
   }
-  handleAddRandomCard(){
+  handleAddRandomCard(listId){
+    const randomCard = this.addRandomCard()
+    const randomCardId = randomCard.id;
+    const newLists = this.addCardToList(listId, randomCardId);
     this.setState({
-      
+      lists: newLists,
+      allcards: {
+        ...this.state.allCards,
+        randomCardId: randomCard,
+      }
     })
   }
+
 
 
   render() {
@@ -89,6 +115,7 @@ class App extends Component {
               header={list.header}
               cards={list.cardIds.map(id => store.allCards[id])}
               deleteItem={this.handleDeleteItem.bind(this)}
+              addItem={this.handleAddRandomCard.bind(this)}
             />
           ))}
         </div>

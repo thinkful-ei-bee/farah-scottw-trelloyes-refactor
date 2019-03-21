@@ -26,6 +26,7 @@ export default function List(props) {
           />
         )}
         <button
+          onClick={() => {props.addItem(props.id)}}
           type='button'
           className='List-add-button'
         >
