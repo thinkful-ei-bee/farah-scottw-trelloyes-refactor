@@ -86,21 +86,25 @@ class App extends Component {
   }
   handleAddRandomCard(listId){
     const randomCard = this.addRandomCard()
+    // console.log(randomCard);
+    // console.log(listId);
     const randomCardId = randomCard.id;
     const newLists = this.addCardToList(listId, randomCardId);
     this.setState({
       lists: newLists,
-      allcards: {
+      allCards: {
         ...this.state.allCards,
-        randomCardId: randomCard,
+        [randomCardId]: randomCard,
       }
     })
+    // console.log(this.state.allCards);
   }
 
 
 
   render() {
     const store  = this.state
+    console.log(this.state);
     return (
       <main className='App'>
         <header className='App-header'>
