@@ -18,6 +18,7 @@ export default function List(props) {
             title={card.title}
             content={card.content}
             deleteItem={props.deleteItem}
+            deleteAllItem={props.deleteAllItem}
             //experiment
             listKey={props.id}
 

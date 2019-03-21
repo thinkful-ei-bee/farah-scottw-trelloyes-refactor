@@ -100,6 +100,37 @@ class App extends Component {
     // console.log(this.state.allCards);
   }
 
+  deleteAllCardsFromLists(id){
+    return this.state.lists.map(obj => {
+      return {
+        ...obj,
+        cardIds: obj.cardIds.filter(cardId => cardId !== id ),
+      };
+    })
+  }
+
+  // deleteFromAllCards(id){
+  //   const newAllCards = this.state.allCards.filter(prop => prop.id !== id);
+  //   return newAllCards;
+  // }
+
+  omit(obj, keyToOmit) {
+    return Object.entries(obj).reduce(
+      (newObj, [key, value]) =>
+          key === keyToOmit ? newObj : {...newObj, [key]: value},
+      {}
+    );
+  }
+
+  handleDeleteAllItem(id){
+    const newLists = this.deleteAllCardsFromLists(id);
+    const newCards = this.omit(this.state.allCards, id);
+    this.setState({
+      lists: newLists,
+      allCards: newCards,
+    })
+  }
+
 
 
   render() {
@@ -119,6 +150,7 @@ class App extends Component {
               header={list.header}
               cards={list.cardIds.map(id => store.allCards[id])}
               deleteItem={this.handleDeleteItem.bind(this)}
+              deleteAllItem={this.handleDeleteAllItem.bind(this)}
               addItem={this.handleAddRandomCard.bind(this)}
             />
           ))}

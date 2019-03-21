@@ -10,6 +10,12 @@ export default function Card(props) {
       >
         delete
       </button>
+      <button
+        onClick={() => {props.deleteAllItem(props.id)}}
+        type='button'
+      >
+        delete all
+      </button>
       <h3>{props.title}</h3>
       <p>{props.content}</p>
     </div>
