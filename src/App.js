@@ -43,9 +43,27 @@ class App extends Component {
     }
   };
 
-  handleDeleteItem(){
-    this.setState({
+  //identify the list
+  //map through list.cardIds removing targeted id
+  //return the new array
 
+  deleteCardId(listKey, cardKey) {
+    return this.state.lists.map(obj => {
+      if(obj.id === listKey) {
+        return {
+          ...obj,
+          cardIds: obj.cardIds.filter(id => id !== cardKey ),
+        }
+      }else{return obj;}
+    });
+  }
+
+
+  handleDeleteItem(listKey, cardKey){
+    const newLists = this.deleteCardId(listKey, cardKey)
+    this.setState({
+      lists: newLists,
+      // allCards: this.state.allCards,
     })
   }
   handleAddRandomCard(){
@@ -66,9 +84,11 @@ class App extends Component {
         {console.log(this.state.store)}
           {store.lists.map(list => (
             <List
+              id={list.id}
               key={list.id}
               header={list.header}
               cards={list.cardIds.map(id => store.allCards[id])}
+              deleteItem={this.handleDeleteItem.bind(this)}
             />
           ))}
         </div>
